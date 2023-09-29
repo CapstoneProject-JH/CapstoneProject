@@ -21,7 +21,7 @@ export default function NavBar({ setHomePage, token, cartPage, setCartPage, chec
     const navigate = useNavigate();
     const userCartId = 1;
     
-    
+    console.log("gee",cartPage)
     return(
         <>
             <header className="container">
@@ -40,8 +40,9 @@ export default function NavBar({ setHomePage, token, cartPage, setCartPage, chec
                         {token ? <p>User: {sessionStorage.getItem("username")}</p> : <p></p>}
                     </div>
                     <div className="userButtons">
+                        
                         {!token 
-                            ? <button><Link to='/loginDoggy' className="linkColor" onClick=
+                            ? <button><Link to='/login' className="linkColor" onClick=
                                 {() =>{
                                     setError(null)
                                     setCartPage(false)
@@ -62,7 +63,7 @@ export default function NavBar({ setHomePage, token, cartPage, setCartPage, chec
                                     setCartPage(true);
                                     setError("Please Login before Checkout.")
                                 }}>Checkout</Link></button>
-                        : ((cartPage && (JSON.parse(localStorage.getItem(`All_Products_In_User_Cart${userCartId}`)).length <= 1))) 
+                        : ((cartPage && (JSON.parse(localStorage.getItem(`All_Products_In_User_Cart${userCartId}`)).length === 0))) 
                             ? <button><Link to='/cart' className="linkColor" onClick=
                                 {() =>{
                                     setCartPage(true);

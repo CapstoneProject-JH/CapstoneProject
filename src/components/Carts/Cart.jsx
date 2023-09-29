@@ -20,7 +20,7 @@ export default function Cart({ error, set_Quantity_User_Cart, checkoutPage }) {
   return (
     <>
         <>
-          
+          <p>If items don't add to cart on first try click FusionNova and try again thank you!</p>
           <h2>Shopping Cart</h2>
           <div className="userCart">
             <span>{error && <p>{error}</p>}</span>

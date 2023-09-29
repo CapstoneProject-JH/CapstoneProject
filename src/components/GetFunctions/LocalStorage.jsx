@@ -35,6 +35,7 @@ export const reduceQuantity = (item) => {
         })
         localStorage.setItem(`productId:${item}[${userCartId}]`, JSON.stringify(localProductQuantity))
     } 
+    console.log("geeze", localProductQuantity)
     if(localProductQuantity === 0){
         All_Local_Productz.map((product, key) => {
             if(product["productId"] === item){

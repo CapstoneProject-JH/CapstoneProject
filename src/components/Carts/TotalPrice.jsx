@@ -6,26 +6,22 @@ const userCartId = 1;
 
 export default function TotalPrice({ loading, setLoading}){
 
-    let cartItems = []
-    if(JSON.parse(localStorage.getItem(`All_Products_In_User_Cart${userCartId}`)) !== null){
-        cartItems = JSON.parse(localStorage.getItem(`All_Products_In_User_Cart${userCartId}`))
-    }
-    // if(cartItems !== null){
-    //     // cartItems.shift()
-
-    // }
+    let cartItems = JSON.parse(localStorage.getItem(`All_Products_In_User_Cart${userCartId}`))
     const [itemPriceWithQuantity, setItemPriceWIthQuantity] = useState(0)
     
     
     useEffect(() =>{
-        const totalPrice = cartItems.reduce((accumulator, currentItem) => {
-            multiplyQuantityOfProduct(currentItem)
-            accumulator += JSON.parse(localStorage.getItem(`ProductTotalPrice_${currentItem["productId"]}`))
-            
-            return accumulator
-        },0)
-        setItemPriceWIthQuantity(totalPrice)
-        localStorage.setItem('TotalPrice', totalPrice)
+        if(cartItems !== null){
+            const totalPrice = cartItems.reduce((accumulator, currentItem, index) => {
+                multiplyQuantityOfProduct(currentItem)
+                accumulator += JSON.parse(localStorage.getItem(`ProductTotalPrice_${currentItem["productId"]}`))
+                
+                return accumulator
+            },0)
+
+            setItemPriceWIthQuantity(totalPrice)
+            localStorage.setItem('TotalPrice', totalPrice)
+        }
         setLoading(false)
     },[loading])
 

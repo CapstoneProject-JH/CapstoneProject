@@ -4,7 +4,7 @@ import { getClothing } from "../../API/apiCalls"
 import { addQuantity, reduceQuantity } from "../GetFunctions/LocalStorage"
 
 export default function ItemPage({  item, items, setItems, homePage, setHomePage }){
-
+    
     return (
         <>
             <div className="miniNav">
@@ -39,4 +39,3 @@ export default function ItemPage({  item, items, setItems, homePage, setHomePage
         </>
     )
 }
-

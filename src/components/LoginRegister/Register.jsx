@@ -1,55 +1,29 @@
-import { useEffect } from "react"
+// import { useEffect } from "react"
 import { useNavigate } from 'react-router-dom'
+import { loginUser } from "../../API/apiCalls";
+import { Link } from 'react-router-dom';
 
 
-
-export default function LoginDog({ setToken, username, setUsername, password, setPassword, error, setError }){
+export default function Register({ username, setUsername, password, setPassword, error, setError }){
     const navigate = useNavigate();
     const minLoginNum = 5;
     const maxLoginNum = 16;
     const userCartId = 1;
   // setCartPage(true)
   // Grab desired users cart and stores the product and quantity in product state
-    useEffect(() => {
-            // if (!localStorage.getItem(`All_Products_In_User_Cart${userCartId}`)){
-            //     localStorage.setItem(`All_Products_In_User_Cart${userCartId}`, '[{}]')
-            // }
+    // useEffect(() => {
+    //         if (!localStorage.getItem(`All_Products_In_User_Cart${userCartId}`)){
+    //             localStorage.setItem(`All_Products_In_User_Cart${userCartId}`, '[{}]')
+    //         }
             
-    }, []);
+    // }, []);
 
     //To see all user's login info
 
     async function handleSubmit(event){
         event.preventDefault();
-        try{
-            loginValidate(username, password);
-            const response = await fetch("https://fakestoreapi.com/auth/login",{
-                method:'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                  },
-                body:JSON.stringify({
-                    username: `${username}`,
-                    password: `${password}`
-                })
-            });
-            if(!response.ok){
-                // console.log(response) 
-                setError("Invalid Username or password. Please try again")
-                // console.log(error)
-                throw new Error("Invalid Username or password. Please try again")
-            }
-            const result = await response.json();
-
-            sessionStorage.setItem("token", result.token)
-            sessionStorage.setItem("username", username)
-            setToken(result.token)
-
-            navigate('/')
-        }catch(error){
-            setError(error.message)
-            console.error(error)
-        }
+        // loginValidate(username, password);
+        loginUser(username, password, setError, navigate)
     }
 
     function loginValidate(username, password){
@@ -73,11 +47,11 @@ export default function LoginDog({ setToken, username, setUsername, password, se
                 <p>Username: johnd</p>
                 <p>Password: m38rmF$</p>
                 <div className="Login_Register">
-                    <button><h2>Login</h2></button>
+                    <button><h2><Link to='/login' className='linkColor'>Login</Link></h2></button>
                     <h2>|</h2>
-                    {/* <span><button><h2><Link to='/register' className="linkColor">Register</Link></h2></button></span> */}
+                    <span><button><h2>Register</h2></button></span>
                 </div>
-                <form onSubmit={handleSubmit}>
+                {/* <form onSubmit={handleSubmit}>
                     <label>
                         <input required value={username} placeholder="Username" onChange={e =>{
                             setUsername(e.target.value)
@@ -89,7 +63,7 @@ export default function LoginDog({ setToken, username, setUsername, password, se
                         }}/>
                     </label>
                     <input type="submit" value="Submit"/>
-                </form>
+                </form> */}
             </div>
             <span>{error && <p>{error}</p>}</span>
         </>
